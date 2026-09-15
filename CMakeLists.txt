@@ -15,7 +15,9 @@ pkg_check_modules(MIQUTOOLKIT REQUIRED IMPORTED_TARGET miqutoolkit)
 
 add_executable(miquinfo
     src/main.cpp
+    src/info_app.cpp
     src/sys_info.cpp
+    src/ui/page_builder.cpp
 )
 
 target_include_directories(miquinfo PRIVATE
