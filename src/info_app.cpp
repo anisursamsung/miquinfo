@@ -107,17 +107,20 @@ void InfoApp::setup_ui() {
         ->addItem("System", "🌐")
         ->selectedIndex(0)
         ->pillSize(44, 26)
-        ->showDivider(true)
-        ->barHeight(58)
+        ->cornerRadius(24)
+        ->barHeight(56)
+        ->itemWidth(74)
+        ->showDivider(false)
         ->onItemSelected([this](int idx) {
             if (m_pager) m_pager->set_current_page(idx);
         })
         ->build();
     m_bottom_nav->set_layout_params(LayoutParams(
-        static_cast<int>(LayoutDimension::MatchParent),
-        58
+        static_cast<int>(LayoutDimension::WrapContent),
+        56,
+        Gravity::CenterHorizontal
     ));
-    m_bottom_nav->set_margin(0, 0, 0, 0);
+    m_bottom_nav->set_margin(16, 6, 16, 12);
     root_container->add_view(m_bottom_nav);
 
     // Window
