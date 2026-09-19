@@ -66,7 +66,8 @@ void InfoApp::setup_ui() {
         ->titleAlignment(TitleAlignment::Center)
         ->onRefresh([this]() { refresh(); })
         ->onClose([this]() {
-            if (m_engine) m_engine->quit();
+            if (m_window) m_window->request_close();
+            else if (m_engine) m_engine->quit();
         })
         ->build();
     m_toolbar->set_margin(14, 12, 14, 8);
