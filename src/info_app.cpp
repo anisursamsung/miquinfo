@@ -101,11 +101,11 @@ void InfoApp::setup_ui() {
 
     // Bottom Navigation
     m_bottom_nav = BottomNavigationViewBuilder::create()
-        ->addItem("Overview", "ℹ️")
-        ->addItem("Hardware", "🖥️")
-        ->addItem("Sensors", "⚡")
-        ->addItem("Storage", "💾")
-        ->addItem("System", "🌐")
+        ->addItem("Overview", "dialog-information")
+        ->addItem("Hardware", "computer")
+        ->addItem("Sensors", "applications-system")
+        ->addItem("Storage", "drive-harddisk")
+        ->addItem("System", "preferences-system-network")
         ->selectedIndex(0)
         ->pillSize(44, 26)
         ->cornerRadius(24)

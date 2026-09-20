@@ -120,12 +120,12 @@ void PageBuilder::populate_overview(const std::shared_ptr<LinearLayout>& col, co
     auto hero_row = std::make_shared<LinearLayout>(Orientation::Horizontal);
     hero_row->set_layout_params(LayoutParams(static_cast<int>(LayoutDimension::MatchParent), static_cast<int>(LayoutDimension::WrapContent), Gravity::CenterVertical));
 
-    std::string miquland_icon = "miquland";
-    if (ImageView::resolve_icon_path(miquland_icon).empty()) {
-        miquland_icon = "/usr/share/icons/hicolor/256x256/apps/miquland.png";
-        if (!std::filesystem::exists(miquland_icon)) {
-            miquland_icon = "assets/miquland.png";
-        }
+    std::string miquland_icon = ImageView::resolve_icon_path("miquland");
+    if (miquland_icon.empty() && std::filesystem::exists("assets/miquland.png")) {
+        miquland_icon = "assets/miquland.png";
+    }
+    if (miquland_icon.empty()) {
+        miquland_icon = "miquland";
     }
 
     auto logo = ImageViewBuilder::create()
