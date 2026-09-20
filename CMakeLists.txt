@@ -46,6 +46,7 @@ target_compile_options(miquinfo PRIVATE
 include(GNUInstallDirs)
 install(TARGETS miquinfo RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES assets/miquinfo.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+install(FILES assets/miquinfo.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/miquinfo)
 install(FILES assets/miquland.png DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps)
 install(FILES assets/miquland-128.png DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps RENAME miquland.png)
 install(FILES assets/miquland-64.png DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/64x64/apps RENAME miquland.png)
