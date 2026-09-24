@@ -33,7 +33,16 @@ int main(int argc, char* argv[]) {
                       << "Options:\n"
                       << "  -p, --print          Print system summary to stdout\n"
                       << "  -m, --markdown       Print system summary in markdown format\n"
+                      << "  --init-config        Generate default user configuration file\n"
                       << "  -h, --help           Show this help message and exit\n";
+            return 0;
+        } else if (arg == "--init-config") {
+            std::string res = miqu::Config::init_user_config("miquinfo", "miquinfo.conf");
+            if (!res.empty()) {
+                std::cout << "[miquinfo] Configuration initialized at: " << res << "\n";
+            } else {
+                std::cout << "[miquinfo] Configuration file already exists or could not be created.\n";
+            }
             return 0;
         }
     }
@@ -44,13 +53,14 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Resolve and bootstrap configuration file
-    std::string user_conf = miqu::Config::ensure_user_config("miquinfo", "miquinfo.conf");
+    // 1. Resolve user configuration file if present (no auto-seeding on startup)
+    std::string user_cfg_dir = miqu::FsUtils::get_user_config_dir("miquinfo");
     std::string target_conf;
-    if (!user_conf.empty() && fs::exists(user_conf)) {
-        target_conf = user_conf;
-    } else if (fs::exists("/usr/share/miquinfo/miquinfo.conf")) {
-        target_conf = "/usr/share/miquinfo/miquinfo.conf";
+    if (!user_cfg_dir.empty()) {
+        std::string p = user_cfg_dir + "/miquinfo.conf";
+        if (fs::exists(p)) {
+            target_conf = p;
+        }
     }
 
     int default_tab = 0;
@@ -58,6 +68,7 @@ int main(int argc, char* argv[]) {
     if (!target_conf.empty()) {
         // Overlay any toolkit appearance overrides (colors, fonts, metrics, icon_theme)
         miqu::Config::get()->load_from_file(target_conf);
+        engine->setup_config_watcher();
 
         std::ifstream file(target_conf);
         std::string line;
